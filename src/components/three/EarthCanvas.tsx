@@ -4,24 +4,13 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 
 import EarthFallback from "@/components/three/EarthFallback";
+import { detectWebGL } from "@/lib/webgl";
 
 const EarthScene = dynamic(() => import("@/components/three/EarthScene"), {
   ssr: false,
 });
 
 type WebGLStatus = "pending" | "supported" | "unsupported";
-
-function detectWebGL(): boolean {
-  try {
-    const canvas = document.createElement("canvas");
-    const context =
-      canvas.getContext("webgl2") || canvas.getContext("webgl");
-
-    return Boolean(window.WebGLRenderingContext && context);
-  } catch {
-    return false;
-  }
-}
 
 /**
  * Monta la escena 3D solo en el cliente y solo si hay WebGL. Mientras carga
