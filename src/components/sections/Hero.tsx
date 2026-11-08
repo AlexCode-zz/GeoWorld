@@ -5,7 +5,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import ScrollIndicator from "@/components/sections/ScrollIndicator";
 import EarthCanvas from "@/components/three/EarthCanvas";
 import ExploreButton from "@/components/ui/ExploreButton";
-import { LAYERS_AVAILABLE, LAYERS_ROUTE } from "@/lib/site";
+import { LAYERS_ROUTE } from "@/lib/site";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -73,7 +73,6 @@ export default function Hero() {
               </p>
               <ExploreButton
                 href={LAYERS_ROUTE}
-                available={LAYERS_AVAILABLE}
                 className="mt-6"
               />
             </motion.div>

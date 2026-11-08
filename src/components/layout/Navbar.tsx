@@ -1,8 +1,18 @@
-import Link from "next/link";
+"use client";
 
-import { LAYERS_AVAILABLE, LAYERS_ROUTE, SITE_NAME } from "@/lib/site";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { LAYERS_ROUTE } from "@/lib/site";
+
+const NAV_ITEMS = [
+  { href: "/", label: "Inicio" },
+  { href: LAYERS_ROUTE, label: "Capas" },
+];
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-black/25 backdrop-blur-md">
       <nav
@@ -40,47 +50,32 @@ export default function Navbar() {
           <span className="text-[15px] font-medium tracking-[-0.01em] text-white">
             Geo<span className="text-white/55">World</span>
           </span>
-          <span className="sr-only">{SITE_NAME}</span>
         </Link>
 
         <ul className="flex items-center gap-7 text-[13px] sm:gap-9 sm:text-sm">
-          <li>
-            <Link
-              href="/"
-              aria-current="page"
-              className="relative inline-block text-white/90 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric/60 focus-visible:ring-offset-4 focus-visible:ring-offset-black"
-            >
-              Inicio
-              <span
-                aria-hidden
-                className="absolute -bottom-2 left-0 h-px w-full bg-electric/80"
-              />
-            </Link>
-          </li>
+          {NAV_ITEMS.map((item) => {
+            const isActive = pathname === item.href;
 
-          <li>
-            {LAYERS_AVAILABLE ? (
-              <Link
-                href={LAYERS_ROUTE}
-                className="text-white/60 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric/60 focus-visible:ring-offset-4 focus-visible:ring-offset-black"
-              >
-                Capas
-              </Link>
-            ) : (
-              <span
-                aria-disabled="true"
-                title="Próximamente"
-                className="inline-flex cursor-default items-center gap-1.5 text-white/35"
-              >
-                Capas
-                <span
-                  aria-hidden
-                  className="h-1 w-1 rounded-full bg-electric/70"
-                />
-                <span className="sr-only">(próximamente)</span>
-              </span>
-            )}
-          </li>
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`relative inline-block rounded-sm transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric/60 focus-visible:ring-offset-4 focus-visible:ring-offset-black ${
+                    isActive ? "text-white" : "text-white/55 hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                  <span
+                    aria-hidden
+                    className={`absolute -bottom-2 left-0 h-px w-full bg-electric/80 transition-opacity duration-300 ${
+                      isActive ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </header>
