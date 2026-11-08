@@ -6,12 +6,12 @@ import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 import Atmosphere from "@/components/three/Atmosphere";
+import NightLights from "@/components/three/NightLights";
 import { useEarthRotation } from "@/hooks/useEarthRotation";
 import {
   CLOUDS_DRIFT_SPEED,
   CLOUDS_RADIUS,
   EARTH_TEXTURES,
-  NIGHT_RADIUS,
   getEarthLayout,
 } from "@/lib/three-config";
 
@@ -51,12 +51,12 @@ export default function Earth({ reducedMotion, onReady }: EarthProps) {
       texture.anisotropy = anisotropy;
     });
 
-    // Mapas de color en sRGB; mapas de datos (normal, especular, alpha) lineales.
+    // Mapas de color en sRGB; mapas de datos (normal, especular) lineales.
     textures.day.colorSpace = THREE.SRGBColorSpace;
     textures.night.colorSpace = THREE.SRGBColorSpace;
     textures.normal.colorSpace = THREE.NoColorSpace;
     textures.specular.colorSpace = THREE.NoColorSpace;
-    textures.clouds.colorSpace = THREE.NoColorSpace;
+    textures.clouds.colorSpace = THREE.SRGBColorSpace;
   }, [textures, gl]);
 
   useEffect(() => {
@@ -77,31 +77,27 @@ export default function Earth({ reducedMotion, onReady }: EarthProps) {
             map={textures.day}
             normalMap={textures.normal}
             specularMap={textures.specular}
-            specular="#1e4f80"
-            shininess={16}
+            specular="#16344c"
+            shininess={44}
           />
         </mesh>
 
-        <mesh scale={NIGHT_RADIUS} renderOrder={1}>
-          <sphereGeometry args={[1, 64, 64]} />
-          <meshBasicMaterial
-            map={textures.night}
-            transparent
-            opacity={0.55}
-            blending={THREE.AdditiveBlending}
-            depthWrite={false}
-            toneMapped={false}
-          />
-        </mesh>
+        <NightLights map={textures.night} />
 
         <mesh ref={cloudsRef} scale={CLOUDS_RADIUS} renderOrder={2}>
-          <sphereGeometry args={[1, 64, 64]} />
+          <sphereGeometry args={[1, 96, 96]} />
+          {/* Las nubes están en el canal alfa de la textura: como `map` se
+              respeta su forma, mientras que un `alphaMap` leería el verde
+              (opaco en casi toda la imagen) y taparía el planeta. */}
           <meshPhongMaterial
-            alphaMap={textures.clouds}
+            map={textures.clouds}
             color="#ffffff"
             transparent
-            opacity={0.72}
+            opacity={0.92}
+            alphaTest={0.015}
             depthWrite={false}
+            specular="#2a4a66"
+            shininess={8}
           />
         </mesh>
       </group>
