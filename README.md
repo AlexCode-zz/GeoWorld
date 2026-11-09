@@ -154,5 +154,13 @@ distribuyen con los ejemplos de [three.js](https://github.com/mrdoob/three.js)
 - `earth-normal.jpg` — relieve
 - `earth-specular.jpg` — brillo de océanos
 
+Las capas internas no usan imágenes: sus caras de corte llevan texturas
+procedurales generadas en el cliente desde `src/lib/layer-textures.ts` (ruido
+determinista, sin descargas): roca estratificada en la corteza, roca con vetas
+incandescentes y celdas de convección en el manto, metal fundido con remolinos
+en el núcleo externo y facetas de cristal dorado en el núcleo interno. Las
+texturas se ajustan al disco de cada capa y giran sobre su centro para animar
+las corrientes, sin tocar la geometría ni la interacción.
+
 Las fuentes se cargan con `next/font`, así que no hay archivos en
 `public/fonts`.
