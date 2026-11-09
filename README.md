@@ -143,16 +143,22 @@ escena (6 % del radio) para que se distinga en pantalla.
 
 ## Texturas
 
-Los mapas de `public/textures` provienen de *NASA Visible Earth* y se
-distribuyen con los ejemplos de [three.js](https://github.com/mrdoob/three.js)
-(repositorio MIT):
+Los mapas de `public/textures` son material de **dominio público** de
+[NASA Visible Earth](https://visibleearth.nasa.gov/), así que se pueden usar y
+modificar sin pedir permiso (la NASA no patrocina el proyecto):
 
-- `earth-day.jpg` — mapa diurno (Blue Marble)
-- `earth-night.png` — luces nocturnas, recortadas por shader al lado oscuro
-- `earth-clouds.png` — nubes; su forma vive en el canal alfa, por eso se usa como
-  `map` transparente y no como `alphaMap`
-- `earth-normal.jpg` — relieve
-- `earth-specular.jpg` — brillo de océanos
+- `earth-day.jpg` — Blue Marble Next Generation (julio de 2004), con el tono
+  ajustado.
+- `earth-night.png` — luces nocturnas de las ciudades (DMSP), recortadas por el
+  shader al lado oscuro.
+- `earth-clouds.png` — nubes de julio de 2004; su forma vive en el canal alfa,
+  por eso se usa como `map` transparente y no como `alphaMap`.
+- `earth-normal.jpg` — relieve derivado del mapa diurno (Sobel suavizado).
+- `earth-specular.jpg` — máscara de océanos y hielo generada a partir del color
+  del mapa diurno.
+
+Créditos completos y licencias de las fuentes y dependencias:
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 Las capas internas no usan imágenes: sus caras de corte llevan texturas
 procedurales generadas en el cliente desde `src/lib/layer-textures.ts` (ruido
