@@ -14,7 +14,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-black/25 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50">
       <nav
         aria-label="Navegación principal"
         className="mx-auto flex h-16 w-full max-w-[1500px] items-center justify-between px-5 sm:px-8 lg:h-20 lg:px-12"
