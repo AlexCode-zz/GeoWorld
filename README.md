@@ -1,4 +1,4 @@
-# GeoWorld · Fases 1 y 2
+# GeoWorld · 
 
 Proyecto educativo interactivo sobre el planeta Tierra. La home está
 protagonizada por un globo terráqueo 3D con texturas reales, nubes, luces
@@ -45,15 +45,6 @@ Comprobación de tipos:
 ```bash
 npx tsc --noEmit
 ```
-
-## Rutas
-
-| Ruta     | Contenido                                      |
-| -------- | ---------------------------------------------- |
-| `/`      | Home con el planeta 3D                         |
-| `/capas` | Capas internas: tarjetas + corte transversal   |
-
-El navbar marca la ruta activa con `usePathname` y `aria-current="page"`.
 
 ## Estructura
 
